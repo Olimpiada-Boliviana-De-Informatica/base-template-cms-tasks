@@ -1,6 +1,8 @@
 # base-template
 
-Este repositorio sirve como plantilla base para todos los concursos que utilizan CMS.
+Este repositorio proporciona una estructura base para la organización y gestión de problemas CMS, utilizando [TPS (Testcase Preparation System)](https://github.com/ioi-2017/tps), así como la importación de usuarios y administradores.
+
+Su objetivo principal es estandarizar y automatizar el flujo de trabajo para la preparación y despliegue de problemas usando CMS.
 
 ## Estructura de directorios
 
