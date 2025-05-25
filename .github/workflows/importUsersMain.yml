@@ -1,0 +1,67 @@
+name: Import users
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - users/**
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup SSH connection
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.DEV_SSH_SECRET }}
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ vars.DEV_SSH_HOST }} >> ~/.ssh/known_hosts
+        
+      - name: Checkout
+        uses: actions/checkout@v4
+          
+  importUsers:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH connection
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.DEV_SSH_SECRET }}
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ vars.DEV_SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Create folder
+        run: ssh ${{ vars.DEV_SSH_USERNAME }}@${{ vars.DEV_SSH_HOST }} "rm -rf dataset && mkdir dataset || mkdir dataset"
+
+      - name: Upload users to server
+        run: |
+          ls -lha
+          scp -r scripts ${{ vars.DEV_SSH_USERNAME }}@${{ vars.DEV_SSH_HOST }}:dataset/
+          scp -r users ${{ vars.DEV_SSH_USERNAME }}@${{ vars.DEV_SSH_HOST }}:dataset/
+  
+      - name: Import admin users
+        run: |
+          ssh ${{ vars.DEV_SSH_USERNAME }}@${{ vars.DEV_SSH_HOST }} 'bash -s' <<'ENDSSH'
+          set +e
+          source .bashrc
+          cd dataset/scripts
+          chmod +x cms-import-admins.sh
+          ./cms-import-admins.sh
+          ENDSSH || true
+
+      - name: Import users
+        run: |
+          ssh ${{ vars.DEV_SSH_USERNAME }}@${{ vars.DEV_SSH_HOST }} 'bash -s' <<'ENDSSH'
+          set +e
+          source .bashrc
+          cd dataset/scripts
+          chmod +x cms-import-users.sh
+          ./cms-import-users.sh
+          ENDSSH || true

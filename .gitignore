@@ -1,0 +1,6 @@
+.idea
+.DS_Store
+
+tasks/**/gen/*.out
+tasks/**/logs
+tasks/**/sandbox
