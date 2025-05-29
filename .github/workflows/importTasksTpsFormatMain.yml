@@ -1,4 +1,4 @@
-name: Import statemets - MAIN
+name: Import TPS format - MAIN
 on:
   push:
     branches:
