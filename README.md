@@ -22,6 +22,7 @@ Este directorio contiene los scripts necesarios para:
 En este directorio se encuentra todo lo relacionado con la creación de problemas.  
 Cada problema debe ubicarse dentro de la carpeta `tasks`.
 
+Nota.- Para tener soporte en multiples idiomas es necesario crear el statement en formato de codigo de lenguaje: es, en, etc 
 ### `users/`
 
 Este directorio incluye dos archivos CSV:
