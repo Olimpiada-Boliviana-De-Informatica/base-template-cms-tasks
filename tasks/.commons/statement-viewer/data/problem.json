@@ -1,0 +1,12 @@
+{
+  "name": "problem-codename",
+  "title": "Prblem name",
+  "type": "Batch",
+  "has_grader": false,
+  "java_enabled": false,
+  "python_enabled": false,
+  "time_limit": 0.2,
+  "memory_limit": 256,
+  "description": "",
+  "web_url": "https://tps.example.com/tasks/annoying-donchik"
+}
