@@ -9,9 +9,9 @@ import socket
 
 PYPPETEER_PDF_OPTIONS = {
     'margin': {
-        'left': '0.75in',
-        'right': '0.75in',
-        'top': '0.62in',
+        'left': '0.6in',
+        'right': '0.6in',
+        'top': '0.6in',
         'bottom': '1in',
     },
     'format': 'A4',
@@ -25,18 +25,18 @@ def write_exception_messages(exc, stream=sys.stderr):
         exc = exc.__cause__
 
 
-async def convert_to_pdf(statement_path, pdf_file, task_name):
+async def convert_to_pdf(statement_path, lang, task_name):
     httpd = None
     browser = None
     try:
         browser = await launch(options={'args': ['--no-sandbox']})
         page = await browser.newPage()
-        await page.goto(f'http://localhost:1234/es', {
+        await page.goto(f'http://localhost:1234/' + lang, {
             'waitUntil': 'networkidle2',
         })
         await page.emulateMedia('print')
         await page.pdf({
-            'path': pdf_file,
+            'path': statement_path + '/' + lang + '.pdf',
             **PYPPETEER_PDF_OPTIONS,
             'displayHeaderFooter': True,
             'footerTemplate': f'''

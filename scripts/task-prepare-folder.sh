@@ -168,7 +168,7 @@ EOF
     if [ ! -f problem.json ]; then
       cat <<EOF > problem.json
 {
-  "name": "problem-codename",
+  "name": "$task_name",
   "title": "Problem name",
   "type": "Batch",
   "has_grader": false,
