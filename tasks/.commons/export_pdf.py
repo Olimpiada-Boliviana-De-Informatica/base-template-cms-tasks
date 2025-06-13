@@ -11,8 +11,8 @@ PYPPETEER_PDF_OPTIONS = {
     'margin': {
         'left': '0.6in',
         'right': '0.6in',
-        'top': '0.6in',
-        'bottom': '1in',
+        'top': '0.8in',
+        'bottom': '0.8in',
     },
     'format': 'A4',
     'printBackground': True,
