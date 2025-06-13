@@ -79,6 +79,9 @@ exit 0" > ./boca-problem-base-master/limits/py3
 
     cd ./boca-problem-base-master/
     zip -r ./${task_name}.zip .
+    mv ./${task_name}.zip ../${task_name}.zip
+    cd ..
+    rm -rf ./boca-problem-base-master/
 
   done
 }
