@@ -58,7 +58,7 @@ echo ${memory_limit}
 echo ${size_limit}
 exit 0" > ./boca-problem-base-master/limits/cc
 
-    time_limit_java=$(( time_limit * 2 ))
+    time_limit_java=$(echo "$time_limit * 2" | bc)
     echo "echo $(printf "%.0f" "$time_limit_java")
 echo 1
 echo ${memory_limit}
