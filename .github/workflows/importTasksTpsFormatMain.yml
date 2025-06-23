@@ -25,10 +25,10 @@ jobs:
       - name: Install TPS
         run: |
           sudo apt-get update
-          sudo apt-get install -y dos2unix zip
-          sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/ioi-2017/tps/master/online-installer/install.sh)"
+          sudo apt-get install -y dos2unix zip make g++
+          sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/ioi-2017/tps/master/online-installer/install.sh)"  || true
 
-      - name: Generate and export tasks
+      - name: Generate and compres all tasks in zip format
         run: |
           set +e
           ls -lha
@@ -44,45 +44,14 @@ jobs:
             fi
           done
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: cms-artifact
-          path: cms
-
-  importTasks:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: cms-artifact
-          path: cms
-
-      - name: Setup SSH connection
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.DEV_SSH_SECRET }}
-
-      - name: Adding Known Hosts
-        run: ssh-keyscan -H ${{ vars.DEV_SSH_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Create folder
-        run: ls -lha
-
-      - name: Create folder
+      - name: Clean and Create dataset folder from the remote server
         run: ssh ${{ vars.DEV_SSH_USERNAME }}@${{ vars.DEV_SSH_HOST }} "rm -rf dataset && mkdir dataset || mkdir dataset"
 
-      - name: Upload all tasks to server
+      - name: Copy all cms tasks to remote server
         run: |
-          ls -lha
           scp -r cms ${{ vars.DEV_SSH_USERNAME }}@${{ vars.DEV_SSH_HOST }}:dataset/
 
-      - name: Import Tasks in available formats
+      - name: Import Tasks
         run: |
               ssh ${{ vars.DEV_SSH_USERNAME }}@${{ vars.DEV_SSH_HOST }} 'bash -s' <<'ENDSSH'
               set +e
@@ -94,13 +63,13 @@ jobs:
                done
 
                for dir in $(find -maxdepth 1 -type d -not -path '.'); do
-                   if [ -d "$dir" ]; then
-                     /opt/.venv/bin/cmsImportTask -L tps_task "$(basename "$dir")" --update
-
-                 		for lang_file in $(find "$dir/statements/" -maxdepth 1 -type f); do
+                  if [ -d "$dir" ]; then
+                    /opt/.venv/bin/cmsImportTask -L tps_task "$(basename "$dir")" --update
+                    for lang_file in $(find "$dir/statements/" -maxdepth 1 -type f); do
                  			lang_code=$(basename "$lang_file" .pdf)
-                     	/opt/.venv/bin/cmsAddStatement "$(basename "$dir")" $lang_code "$(basename "$dir")"/statement/statement.pdf
+                      /opt/.venv/bin/cmsAddStatement --overwrite "$(basename "$dir")" "$lang_code" "$(basename "$dir")/statements/$lang_code.pdf"
                	  	done
-                   fi
+                  fi
                done
               ENDSSH
+
