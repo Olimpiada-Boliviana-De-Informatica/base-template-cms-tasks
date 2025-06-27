@@ -1,76 +1,28 @@
-# Lorem Matrix
+# Descripción
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce accumsan felis id quam porta, sed fermentum magna rutrum.
-Aenean quis massa libero. Nullam et justo rhoncus, tempus odio at, sagittis lorem.
+A Pacha le gusta mucho caminar por las montañas. Esta vez se le ocurrió ir *al punto más alto* de las montañas que rodean su ciudad para tomar una foto de recuerdo. Es bien sabido que no hay ningún otro punto en la montaña con una altura igual o superior, por lo que tiene la mejor vista.
 
-![Lorem Imagen](/resources/logo.png)
+Él siempre junta un grupo para estas actividades y esta vez, decidiste unirte. Llegó el día de la excursión; ya habías preparado todo, pero, por desgracia, te quedaste dormido... No podrás acompañar al grupo todo el camino, pero sí puedes encontrarlos en *el punto más alto*. Le pides el mapa a Pacha para alcanzarlos y él te lo envía en forma de acertijo.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dapibus placerat arcu, non ultrices ipsum pulvinar a.
-Vestibulum sed facilisis purus. Donec eleifend justo at felis finibus, non malesuada justo ultricies. Nullam in justo
-non nibh consequat eleifend nec in metus.
+Las montañas se representan como una cadena que consiste de los caracteres '$+$' y '$-$', cada uno indicando si ese punto de la montaña es más alto o más bajo que el anterior de izquierda a derecha, y teniendo siempre una diferencia de alturas de 1 metro. Te dice también, que asumas que el punto anterior al inicio de la montaña se encuentra a altura 0.
+
+Por ejemplo, la cadena $+++--+--$ es un mapa de montañas con alturas $[1, 2, 3, 2, 1, 2, 1, 0]$.
+
+Dado el mapa, debes calcular la posición de la montaña (de izquierda a derecha) que corresponda al punto más alto para encontrarte con el grupo.
 
 ## Entrada
 
-Praesent vitae risus sed arcu dapibus sagittis. Proin id pulvinar erat. Vestibulum vitae nisi eget ligula fermentum
-cursus. Suspendisse accumsan felis eget nulla gravida, ut hendrerit lacus pharetra.
+La primera y única línea contiene una cadena $s$ formada por los caracteres '$+$' y '$-$' (sin comillas). El tamaño de la cadena no será superior a $10^5$ y contendrá al menos un caracter.
 
-Duis pharetra nibh ac facilisis efficitur. Donec malesuada volutpat nulla nec finibus. Suspendisse feugiat mi at arcu
-dignissim, non lobortis velit bibendum.
-
-## Tabla de ejemplo
-
-| Lorem | Ipsum | Dolor       |
-|-------|-------|-------------|
-| Sit   | Amet  | Consectetur |
-| Fusce | Magna | Rutrum      |
-| Nisi  | Eget  | Ligula      |
+Se garantiza que todos los puntos de las montañas estarán a una altura no negativa y que *solamente habrá un punto más alto*.
 
 ## Salida
 
-Cras eu tincidunt lacus, id volutpat ligula. Pellentesque lobortis risus eget nisl tincidunt, in tincidunt est
-malesuada. Nulla facilisi. Nulla id rhoncus mauris. Vestibulum egestas accumsan vehicula.
-
-Integer accumsan turpis ut magna tincidunt fermentum. Fusce porttitor mi sem, a fermentum massa scelerisque ac. Integer
-sit amet vestibulum felis.
-
-## Restricciones
-
-- $N \le M$
-- $1 \le N \times M \le 10^6$
-- $0 \le tipo \le 1$
-
-## Puntuación
-
-Etiam in sapien id purus eleifend cursus. Nulla lobortis, ipsum vel efficitur malesuada, justo arcu faucibus est, nec
-malesuada orci nulla ac erat:
-
-- Subtarea $1$ ($8$ puntos): Lorem ipsum dolor sit amet.
-- Subtarea $2$ ($13$ puntos): Consectetur adipiscing elit.
-- Subtarea $3$ ($9$ puntos): Fusce accumsan felis id quam porta.
-- Subtarea $4$ ($7$ puntos): Sed fermentum magna rutrum.
-- Subtarea $5$ ($13$ puntos): Aenean quis massa libero.
-- Subtarea $6$ ($23$ puntos): Nullam et justo rhoncus.
-- Subtarea $7$ ($27$ puntos): Tempus odio at sagittis lorem.
+Un número entero, indicando la posición de la montaña que corresponde al punto más alto.
 
 ## Ejemplos
 
-### Input 1
+\sample-case 0-01.in 0-01.out
+\sample-case 0-02.in 0-02.out
 
-```
-3 3 0
-abc
-def
-ghi
-ghi
-def
-abc
-```
-
-### Output 1
-
-```
-3
-R 1
-C 2
-R 3
-```
+En el primer caso, los puntos de las montañas tienen las alturas $[1, 0, 1, 0, 1, 2, 3, 2, 1, 2, 1, 0]$. El punto en la posición $7$ es el más alto.

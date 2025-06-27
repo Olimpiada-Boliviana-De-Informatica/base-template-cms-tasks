@@ -1,12 +1,14 @@
 {
-  "name": "annoying",
-  "title": "Annoying Donchik",
-  "type": "Batch",
-  "has_grader": false,
-  "java_enabled": false,
-  "python_enabled": false,
-  "time_limit": 0.2,
-  "memory_limit": 256,
-  "description": "",
-  "web_url": "https://tps.example.com/tasks/annoying-donchik"
+    "name": "montañas",
+    "header": "Problem C",
+    "balloonColor": "#FF0000",
+    "code": "montañas",
+    "title": "Montañas",
+    "type": "Batch",
+    "has_grader": false,
+    "java_enabled": true,
+    "python_enabled": true,
+    "time_limit": 1.0,
+    "memory_limit": 2048,
+    "description": "Task description"
 }
